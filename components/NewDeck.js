@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { white, gray } from '../utils/colors';
+import { saveDeckTitle } from '../utils/api';
+import { addDeck } from '../actions';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 
 class NewDeck extends Component {
   constructor(props) {
@@ -12,7 +16,16 @@ class NewDeck extends Component {
 
   submitCard = () => {
     if(this.state.text) {
-      console.log('pressed');
+      // update redux
+      let title = this.state.text;
+      this.props.dispatch(addDeck(title));
+
+      // save to db
+      saveDeckTitle(title);
+
+      // clear state or nav to deck
+      this.setState({ text: 'Deck Title' });
+      this.props.navigation.navigate('DeckDetail', { title: title });
     } else {
       console.log('title cannot be empty');
     }
@@ -80,4 +93,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NewDeck;
+function mapStateToProps (state) {
+  return state;
+}
+
+export default connect(mapStateToProps)(NewDeck);

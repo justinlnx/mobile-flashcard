@@ -3,11 +3,16 @@ import { View, Text, StyleSheet } from 'react-native';
 import { gray } from '../utils/colors';
 
 class DeckItem extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    let { deck } = this.props;
     return (
       <View>
-        <Text style={styles.title}>Deck name</Text>
-        <Text style={styles.detail}>3 cards</Text>
+        <Text style={styles.title}>{deck.title}</Text>
+        <Text style={styles.detail}>{`${deck.questions.length} cards`}</Text>
       </View>
     )
   }

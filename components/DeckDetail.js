@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { white } from '../utils/colors';
 
-class EntryDetail extends Component {
+class DeckDetail extends Component {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'entry title'
+      title: navigation.state.params.title
     }
   }
 
@@ -53,4 +56,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default EntryDetail;
+export default DeckDetail;

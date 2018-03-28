@@ -10,7 +10,7 @@ import { purple, white } from './utils/colors';
 import DeckList from './components/DeckList';
 import DeckItem from './components/DeckItem';
 import NewDeck from './components/NewDeck';
-import EntryDetail from './components/EntryDetail';
+import DeckDetail from './components/DeckDetail';
 
 function StatuBar ({ backgroundColor, ...props }) {
   return (
@@ -57,8 +57,8 @@ const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
-  EntryDetail: {
-    screen: EntryDetail,
+  DeckDetail: {
+    screen: DeckDetail,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
