@@ -15,6 +15,25 @@ class DeckDetail extends Component {
     }
   }
 
+  onAddCard = (title) => {
+    this.props.navigation.navigate(
+      'AddCard',
+      {
+        title: title
+      }
+    );
+  }
+
+  onStartQuiz = (deck) => {
+    console.log('start quiz');
+    this.props.navigation.navigate(
+      'Quiz',
+      {
+        deck: deck
+      }
+    )
+  }
+
   render () {
     const deck = this.props.decks[this.props.navigation.state.params.deck.title]
 
@@ -27,10 +46,12 @@ class DeckDetail extends Component {
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity
             style={[styles.button, {backgroundColor: white}]}
-            onPress={() => this.props.navigation.navigate('AddCard', { title: deck.title })}>
+            onPress={() => this.onAddCard(deck.title)}>
             <Text style={{color: 'black', paddingTop: 15}}>Add Card</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, {backgroundColor: 'black'}]} onPress={() => {console.log('pressed')}}>
+          <TouchableOpacity
+            style={[styles.button, {backgroundColor: 'black'}]}
+            onPress={() => this.onStartQuiz(deck)}>
             <Text style={{color: white, paddingTop: 15}}>Start Quiz</Text>
           </TouchableOpacity>
         </View>
