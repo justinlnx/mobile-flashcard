@@ -7,6 +7,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo';
 import { purple, white } from './utils/colors';
+import { setLocalNotification } from './utils/api';
 import DeckList from './components/DeckList';
 import NewDeck from './components/NewDeck';
 import DeckDetail from './components/DeckDetail';
@@ -100,6 +101,7 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   componentDidMount() {
     console.log('mount');
+    setLocalNotification();
   }
 
   render() {

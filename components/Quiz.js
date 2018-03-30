@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { white, red, green } from '../utils/colors';
+import { clearLocalNotification, setLocalNotification } from '../utils/api';
 
 class Quiz extends Component {
   constructor(props) {
@@ -41,6 +42,9 @@ class Quiz extends Component {
           correct: this.state.correct
         }
       )
+
+      // clear local notification
+      clearLocalNotification().then(setLocalNotification);
     } else {
       // next question
       this.setState({ current });
@@ -73,7 +77,6 @@ class Quiz extends Component {
 
   render() {
     let question = this.state.questions[this.state.current];
-    console.log(question);
     return (
       <View style={styles.topContainer}>
         <Text style={styles.progressText}>{`${this.state.current + 1} / ${this.state.questions.length}`}</Text>
