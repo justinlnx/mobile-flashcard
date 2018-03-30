@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import DeckItem from './DeckItem';
 import { connect } from 'react-redux';
-import { white, purple } from '../utils/colors';
+import { white, purple, gray } from '../utils/colors';
 import { getDecks } from '../utils/api';
 import { receiveDecks } from '../actions';
 
@@ -19,15 +18,15 @@ class DeckList extends Component {
   render() {
     const { decks } = this.props;
     let decksArr = Object.keys(decks).map((key) => decks[key]);
-
     return (
       <View>
         {decksArr && decksArr.map((deck, index) => (
           <TouchableOpacity
             key={index} style={styles.item}
-            onPress={() => this.props.navigation.navigate('DeckDetail', { title: deck.title })}
+            onPress={() => this.props.navigation.navigate('DeckDetail', { deck: deck })}
           >
-            <DeckItem deck={deck}/>
+            <Text style={styles.title}>{deck.title}</Text>
+            <Text style={styles.detail}>{`${deck.questions.length} cards`}</Text>
           </TouchableOpacity> 
         ))}
         {decksArr.length === 0 && (
@@ -60,6 +59,16 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20
   },
+  title: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  detail: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: gray
+  }
 });
 
 function mapStateToProps (decks) {

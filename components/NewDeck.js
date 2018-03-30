@@ -14,7 +14,7 @@ class NewDeck extends Component {
     };
   }
 
-  submitCard = () => {
+  submitDeck = () => {
     if(this.state.text) {
       // update redux
       let title = this.state.text;
@@ -25,7 +25,7 @@ class NewDeck extends Component {
 
       // clear state or nav to deck
       this.setState({ text: 'Deck Title' });
-      this.props.navigation.navigate('DeckDetail', { title: title });
+      this.props.navigation.navigate('DeckDetail', { deck: { title: title, questions: [] } });
     } else {
       console.log('title cannot be empty');
     }
@@ -44,7 +44,7 @@ class NewDeck extends Component {
               onFocus={() => this.setState({text: ''})}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.submitCard}>
+          <TouchableOpacity style={styles.button} onPress={this.submitDeck}>
             <Text style={{color: white, paddingTop: 15}}>Submit</Text>
           </TouchableOpacity>
         </View>

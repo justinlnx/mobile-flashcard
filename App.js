@@ -8,9 +8,9 @@ import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo';
 import { purple, white } from './utils/colors';
 import DeckList from './components/DeckList';
-import DeckItem from './components/DeckItem';
 import NewDeck from './components/NewDeck';
 import DeckDetail from './components/DeckDetail';
+import AddCard from './components/AddCard';
 
 function StatuBar ({ backgroundColor, ...props }) {
   return (
@@ -59,6 +59,15 @@ const MainNavigator = StackNavigator({
   },
   DeckDetail: {
     screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

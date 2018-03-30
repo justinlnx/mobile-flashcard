@@ -33,12 +33,10 @@ export function saveDeckTitle(name) {
 }
 
 export function addCardToDeck(name, card) {
-  if(this.getDeck(name)) {
-    console.log('title in use');
-  } else {
-    let key = `${FLASHCARD_KEY}:${name}`;
-    return AsyncStorage.mergeItem(key, JSON.stringify({
-      [key.questions]: card
-    }));
-  }
+  return AsyncStorage.getItem(FLASHCARD_KEY)
+    .then(results => {
+      const data = JSON.parse(results);
+      data[name].questions.push(card);
+      AsyncStorage.setItem(FLASHCARD_KEY, JSON.stringify(data));
+    })
 }

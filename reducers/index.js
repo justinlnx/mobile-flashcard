@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, ADD_DECK } from '../actions';
+import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions';
 
 function decks (state = {}, action) {
   switch (action.type) {
@@ -16,6 +16,13 @@ function decks (state = {}, action) {
         ...state,
         ...action.decks
       }
+    case ADD_CARD:
+      let addCardState = Object.assign({}, state);
+      addCardState[action.payload.deck].questions.push({
+        question: action.payload.question,
+        answer: action.payload.answer,
+      });
+      return addCardState;
     default: 
       return state;
   }
