@@ -12,6 +12,7 @@ import NewDeck from './components/NewDeck';
 import DeckDetail from './components/DeckDetail';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
+import QuizResult from './components/QuizResult';
 
 function StatuBar ({ backgroundColor, ...props }) {
   return (
@@ -78,6 +79,15 @@ const MainNavigator = StackNavigator({
   },
   Quiz: {
     screen: Quiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  QuizResult: {
+    screen: QuizResult,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

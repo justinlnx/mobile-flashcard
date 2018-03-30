@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { white, gray } from '../utils/colors';
+import { white, gray, red } from '../utils/colors';
 import { addCard } from '../actions';
 import { addCardToDeck } from '../utils/api';
 import { connect } from 'react-redux';
@@ -10,8 +10,9 @@ class AddCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: 'Question',
-      answer: 'Answer',
+      question: '',
+      answer: '',
+      error: false,
     }
   }
 
@@ -22,11 +23,12 @@ class AddCard extends Component {
   }
 
   submitCard = (title) => {
-    if(this.state.question === '') {
-      console.log('Empty Question');
-    } else if (this.state.answer === '') {
-      console.log('Empty answer');
+    if(this.state.question === '' || this.state.answer === '') {
+      this.setState({ error: true });
     } else {
+      if(this.state.error) {
+        this.setState({ error: false });
+      }
       // update redux
       this.props.dispatch(addCard(title, this.state.question, this.state.answer));
 
@@ -41,8 +43,8 @@ class AddCard extends Component {
 
       // clear state and nav back to deck detail
       this.setState({
-        question: 'Question',
-        answer: 'Answer',
+        question: '',
+        answer: '',
       });
       this.props.navigation.dispatch(NavigationActions.back());
     }
@@ -57,6 +59,7 @@ class AddCard extends Component {
             <TextInput
               style={{color: gray, height: 50}}
               onChangeText={(question) => this.setState({question})}
+              placeholder={'Question'}
               value={this.state.question}
               onFocus={() => this.setState({question: ''})}
             />
@@ -65,11 +68,15 @@ class AddCard extends Component {
             <TextInput
               style={{color: gray, height: 50}}
               onChangeText={(answer) => this.setState({answer})}
+              placeholder={'Answer'}
               value={this.state.answer}
               onFocus={() => this.setState({answer: ''})}
             />
           </TouchableOpacity>
         </View>
+        {this.state.error && (
+          <Text style={{color: red, fontSize: 15}}>Question or answer cannot be empty</Text>
+        )}
         <TouchableOpacity style={[styles.button, {backgroundColor: 'black'}]} onPress={() => this.submitCard(title)}>
             <Text style={{color: white, paddingTop: 15}}>Submit</Text>
           </TouchableOpacity>

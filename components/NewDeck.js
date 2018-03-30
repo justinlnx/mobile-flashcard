@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { white, gray } from '../utils/colors';
+import { white, gray, red } from '../utils/colors';
 import { saveDeckTitle } from '../utils/api';
 import { addDeck } from '../actions';
 import { connect } from 'react-redux';
@@ -10,12 +10,18 @@ class NewDeck extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: 'Deck Title'
+      text: '',
+      error: false,
     };
   }
 
   submitDeck = () => {
     if(this.state.text) {
+      if(this.state.error) {
+        this.setState({
+          error: false
+        });
+      }
       // update redux
       let title = this.state.text;
       this.props.dispatch(addDeck(title));
@@ -24,10 +30,12 @@ class NewDeck extends Component {
       saveDeckTitle(title);
 
       // clear state or nav to deck
-      this.setState({ text: 'Deck Title' });
+      this.setState({ text: '' });
       this.props.navigation.navigate('DeckDetail', { deck: { title: title, questions: [] } });
     } else {
-      console.log('title cannot be empty');
+      this.setState({
+        error: true
+      });
     }
   }
 
@@ -40,10 +48,14 @@ class NewDeck extends Component {
             <TextInput
               style={{color: gray, height: 50}}
               onChangeText={(text) => this.setState({text})}
+              placeholder={'Deck Title'}
               value={this.state.text}
               onFocus={() => this.setState({text: ''})}
             />
           </TouchableOpacity>
+          {this.state.error && (
+            <Text style={{color: red, fontSize: 15}}>Title cannot be empty</Text>
+          )}
           <TouchableOpacity style={styles.button} onPress={this.submitDeck}>
             <Text style={{color: white, paddingTop: 15}}>Submit</Text>
           </TouchableOpacity>

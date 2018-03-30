@@ -11,7 +11,6 @@ class Quiz extends Component {
       current: 0,
       correct: 0,
       displayAnswer: false,
-      isFinished: false,
     }
   }
 
@@ -25,18 +24,23 @@ class Quiz extends Component {
     let correct = this.state.correct;
     this.setState({
       correct: correct + 1
+    }, () => {
+      this.nextQuestion();
     });
-    this.nextQuestion();
   }
   
   nextQuestion = () => {
     let current = this.state.current + 1;
     if(current >= this.state.questions.length) {
       // finish quiz
-      // or re route to a different component
-      this.setState({
-        isFinished: true
-      });
+      // re route to a different component
+      this.props.navigation.navigate(
+        'QuizResult',
+        {
+          deck: this.props.navigation.state.params.deck,
+          correct: this.state.correct
+        }
+      )
     } else {
       // next question
       this.setState({ current });

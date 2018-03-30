@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 export const FLASHCARD_KEY = 'Flashcards';
 
 export function getDecks() {
-  AsyncStorage.clear();
+  // AsyncStorage.clear();
   return AsyncStorage.getItem(FLASHCARD_KEY)
     .then((results) => {
       return JSON.parse(results);

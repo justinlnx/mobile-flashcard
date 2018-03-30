@@ -25,7 +25,6 @@ class DeckDetail extends Component {
   }
 
   onStartQuiz = (deck) => {
-    console.log('start quiz');
     this.props.navigation.navigate(
       'Quiz',
       {
