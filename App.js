@@ -7,10 +7,13 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo';
 import { purple, white } from './utils/colors';
+import { setLocalNotification } from './utils/api';
 import DeckList from './components/DeckList';
-import DeckItem from './components/DeckItem';
 import NewDeck from './components/NewDeck';
-import EntryDetail from './components/EntryDetail';
+import DeckDetail from './components/DeckDetail';
+import AddCard from './components/AddCard';
+import Quiz from './components/Quiz';
+import QuizResult from './components/QuizResult';
 
 function StatuBar ({ backgroundColor, ...props }) {
   return (
@@ -57,8 +60,35 @@ const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
-  EntryDetail: {
-    screen: EntryDetail,
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+  },
+  QuizResult: {
+    screen: QuizResult,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
@@ -71,6 +101,7 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   componentDidMount() {
     console.log('mount');
+    setLocalNotification();
   }
 
   render() {
